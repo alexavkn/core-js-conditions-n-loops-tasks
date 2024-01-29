@@ -100,6 +100,14 @@ function isIsoscelesTriangle(a, b, c) {
   );
 }
 
+function concatPartRomanNumLetters(romanLetter, num) {
+  let romanNum = '';
+  for (let i = 0; i < num; i += 1) {
+    romanNum += romanLetter;
+  }
+  return romanNum;
+}
+
 /**
  * Converts a number to Roman numerals. The number will be between 1 and 39.
  * In this task, the use of methods of the String and Array classes is not allowed.
@@ -114,8 +122,78 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let partDecimalNum = parseInt(num, 10);
+  let romanNum = '';
+
+  if (partDecimalNum >= 1000) {
+    const thousands = Math.floor(partDecimalNum / 1000);
+    romanNum = concatPartRomanNumLetters('M', thousands);
+    partDecimalNum -= thousands * 1000;
+  }
+
+  if (partDecimalNum >= 900) {
+    romanNum += 'CM';
+    partDecimalNum -= 900;
+  }
+
+  if (partDecimalNum >= 500) {
+    romanNum += 'D';
+    partDecimalNum -= 500;
+  }
+
+  if (partDecimalNum >= 400) {
+    romanNum += 'CD';
+    partDecimalNum -= 400;
+  }
+
+  if (partDecimalNum >= 100) {
+    const hundreds = Math.floor(partDecimalNum / 100);
+    romanNum += concatPartRomanNumLetters('C', hundreds);
+    partDecimalNum -= hundreds * 100;
+  }
+
+  if (partDecimalNum >= 90) {
+    romanNum += 'XC';
+    partDecimalNum -= 90;
+  }
+
+  if (partDecimalNum >= 50) {
+    romanNum += 'L';
+    partDecimalNum -= 50;
+  }
+
+  if (partDecimalNum >= 40) {
+    romanNum += 'XL';
+    partDecimalNum -= 40;
+  }
+
+  if (partDecimalNum >= 10) {
+    const tens = Math.floor(partDecimalNum / 10);
+    romanNum += concatPartRomanNumLetters('X', tens);
+    partDecimalNum -= tens * 10;
+  }
+
+  if (partDecimalNum >= 9) {
+    romanNum += 'IX';
+    partDecimalNum -= 9;
+  }
+
+  if (partDecimalNum >= 5) {
+    romanNum += 'V';
+    partDecimalNum -= 5;
+  }
+
+  if (partDecimalNum >= 4) {
+    romanNum += 'IV';
+    partDecimalNum -= 4;
+  }
+
+  if (partDecimalNum >= 1) {
+    romanNum += concatPartRomanNumLetters('I', partDecimalNum);
+  }
+
+  return romanNum;
 }
 
 /**
@@ -133,8 +211,60 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let textNumber = '';
+  let sign = '';
+  let postfix = true;
+  for (let i = 0; i < numberStr.length; i += 1) {
+    sign = numberStr[i];
+    if (i === numberStr.length - 1) {
+      postfix = false;
+    }
+    switch (sign) {
+      case '1':
+        textNumber += postfix ? 'one ' : 'one';
+        break;
+      case '2':
+        textNumber += postfix ? 'two ' : 'two';
+        break;
+      case '3':
+        textNumber += postfix ? 'three ' : 'three';
+        break;
+      case '4':
+        textNumber += postfix ? 'four ' : 'four';
+        break;
+      case '5':
+        textNumber += postfix ? 'five ' : 'five';
+        break;
+      case '6':
+        textNumber += postfix ? 'six ' : 'six';
+        break;
+      case '7':
+        textNumber += postfix ? 'seven ' : 'seven';
+        break;
+      case '8':
+        textNumber += postfix ? 'eight ' : 'eight';
+        break;
+      case '9':
+        textNumber += postfix ? 'nine ' : 'nine';
+        break;
+      case '0':
+        textNumber += postfix ? 'zero ' : 'zero';
+        break;
+      case '-':
+        textNumber += postfix ? 'minus ' : 'minus';
+        break;
+      case '.':
+        textNumber += postfix ? 'point ' : 'point';
+        break;
+      case ',':
+        textNumber += postfix ? 'point ' : 'point';
+        break;
+      default:
+        break;
+    }
+  }
+  return textNumber;
 }
 
 /**
